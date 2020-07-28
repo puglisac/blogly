@@ -1,0 +1,12 @@
+{%extends "base.html"%} {%block header%}
+<h2>Add post for {{user.full_name}}</h2>
+{%endblock%} {%block content%}
+<form action="/users/{{user.id}}/posts/new" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <label for="content">Content:</label>
+    <input type="text" id="content" name="content">
+    <input type="submit">
+</form>
+<a href="/users/{{user.id}}"><button>Cancel</button></a>
+{%endblock%}

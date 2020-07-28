@@ -1,0 +1,13 @@
+{%extends "base.html"%} {%block header%}
+<h2>{{user.full_name}}</h2>
+<img src="{{user.image_url}}" alt="">
+<a href="/users/{{user.id}}/edit"><button>Edit Details</button></a>
+{%endblock%} {%block content%}
+<h3>Posts</h3>
+<ul>
+{%for post in posts%}
+ <a href="#"><li>{{post.title}}</li></a>
+{%endfor%}
+</ul>
+<a href="/users/{{user.id}}/posts/new"><button>Add Post</button></a>
+{%endblock%}
