@@ -25,7 +25,7 @@ class User(db.Model):
     last_name = db.Column(db.Text,
                      nullable=False)
     image_url = db.Column(db.Text)
-    posts = db.relationship('Post', cascade="all, delete-orphan")
+    posts = db.relationship('Post', cascade="all, delete", backref="user")
     
 
     def update_user(self, first, last, img):
@@ -61,7 +61,6 @@ class Post(db.Model):
                      nullable=False)
     created_at = db.Column(db.DateTime)
     poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    user = db.relationship('User')
 
     def update_post(self, title, content):
         """updates post info"""
@@ -75,4 +74,7 @@ class Post(db.Model):
         dt=self.created_at
         return f"{dt.month}-{dt.day}-{dt.year} at {dt.strftime('%I:%M:%S %p')}"
 
-    
+def top_5_posts():
+    joined = db.session.query(User, Post).join(Post)
+    ordered = joined.order_by(db.desc(Post.created_at))
+    return ordered.limit(5)

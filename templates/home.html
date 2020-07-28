@@ -4,11 +4,11 @@
 </div>
 {%endblock%} {%block content%}
 <div class="container">
-    {%for post in posts%}
+    {%for user, post in posts%}
     <div class="mb-2">
         <h4>{{post.title}}</h4>
         <p>{{post.content}}</p>
-        <i>by {{post.user.full_name}} on {{post.time_format()}}</i>
+        <i>by {{user.full_name}} on {{post.time_format()}}</i>
     </div> {%endfor%}
     <a href="/users"><button class="btn btn-primary center">Users</button></a>
 

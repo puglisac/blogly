@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, top_5_posts
 from datetime import datetime
 
 app = Flask(__name__)
@@ -19,8 +19,7 @@ connect_db(app)
 @app.route("/")
 def home_page():
     """displays the home page"""
-    posts=Post.query.order_by(db.desc("created_at"))
-    ordered_posts=posts.limit(5).all()
+    ordered_posts=top_5_posts()
     return render_template("home.html", posts=ordered_posts)
 
 @app.route("/users")
