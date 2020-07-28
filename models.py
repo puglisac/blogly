@@ -25,6 +25,7 @@ class User(db.Model):
     last_name = db.Column(db.Text,
                      nullable=False)
     image_url = db.Column(db.Text)
+    posts = db.relationship('Post', cascade="all, delete-orphan")
     
 
     def update_user(self, first, last, img):
@@ -60,4 +61,18 @@ class Post(db.Model):
                      nullable=False)
     created_at = db.Column(db.DateTime)
     poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    users = db.relationship('User', backref='posts')
+    user = db.relationship('User')
+
+    def update_post(self, title, content):
+        """updates post info"""
+        if title:
+            self.title=title
+        if content:
+            self.content=content
+    
+    def time_format(self):
+        """returns a formated date and time"""
+        dt=self.created_at
+        return f"{dt.month}-{dt.day}-{dt.year} at {dt.strftime('%I:%M:%S %p')}"
+
+    

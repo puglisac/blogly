@@ -1,14 +1,14 @@
 {%extends "base.html"%} {%block header%}
 <h2>Edit {{user.full_name}}</h2>
 {%endblock%} {%block content%}
-<form action="/users/{{user.id}}/edit" method="POST">
+<form id="user-edit" class="form-group" action="/users/{{user.id}}/edit" method="POST">
     <label for="first-name">First Name:</label>
     <input type="text" id="first-name" name="first">
     <label for="last-name">Last Name:</label>
     <input type="text" id="last-name" name="last">
     <label for="img-url">Image URL:</label>
     <input type="text" id="first-name" name="img">
-    <input type="submit">
 </form>
-<a href="/users/{{user.id}}/delete"><button>Delete</button></a>
-<a href="/users/{{user.id}}"><button>Cancel</button></a> {%endblock%}
+<input class="btn btn-success" type="submit" form="user-edit">
+<a href="/users/{{user.id}}"><button class="btn btn-primary">Cancel</button></a>
+<form class="d-inline" action="/users/{{user.id}}/delete" method="POST"><button class="btn btn-danger">Delete</button></form> {%endblock%}

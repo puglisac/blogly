@@ -15,13 +15,13 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-db.create_all()
-
 
 @app.route("/")
 def home_page():
     """displays the home page"""
-    return redirect("/users")
+    posts=Post.query.order_by(db.desc("created_at"))
+    ordered_posts=posts.limit(5).all()
+    return render_template("home.html", posts=ordered_posts)
 
 @app.route("/users")
 def show_users():
@@ -49,8 +49,8 @@ def add_user():
 def show_user_detail(user_id):
     """shows details about a users"""
     user = User.query.get_or_404(user_id)
-    posts = Post.query.filter(Post.poster_id==user_id)
-    print("post:= ",posts)
+    # posts = Post.query.filter(Post.poster_id==user_id)
+    posts=user.posts
     return render_template("user_detail.html", user=user, posts=posts)
 
 @app.route("/users/<int:user_id>/edit")
@@ -73,7 +73,7 @@ def edit_user(user_id):
     return redirect(f"/users/{user_id}")
 
 
-@app.route("/users/<int:user_id>/delete")
+@app.route("/users/<int:user_id>/delete", methods=["POST"])
 def delete_user(user_id):
     """deletes a user"""
     user = User.query.get_or_404(user_id)
@@ -83,6 +83,7 @@ def delete_user(user_id):
 
 @app.route("/users/<int:user_id>/posts/new")
 def show_post_form(user_id):
+    """show form to create a new post"""
     user = User.query.get_or_404(user_id)
     return render_template("post_form.html", user=user)
     
@@ -96,3 +97,37 @@ def add_post(user_id):
     db.session.commit()
 
     return redirect(f"/users/{user_id}")
+
+@app.route("/posts/<int:post_id>") 
+def post_details(post_id):
+    """shows post details"""
+    post=Post.query.get_or_404(post_id)
+    return render_template("post_details.html", post=post)
+
+@app.route("/posts/<int:post_id>/edit") 
+def edit_post_form(post_id):
+    """shows post edit form"""
+    post=Post.query.get_or_404(post_id)
+    return render_template("edit_post.html", post=post)
+
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])
+def delete_posts(post_id):
+    """deletes a post"""
+    post = Post.query.get_or_404(post_id)
+    user_id=post.user.id
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(f"/users/{user_id}")
+
+@app.route("/posts/<int:post_id>/edit", methods=["POST"])
+def edit_post(post_id):
+    """edits post info"""
+    post = Post.query.get_or_404(post_id)
+    title=request.form["title"]
+    content=request.form["content"]
+
+    post.update_post(title, content)
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/{post_id}")

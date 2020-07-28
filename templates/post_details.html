@@ -1,0 +1,12 @@
+{%extends "base.html"%} {%block header%}
+<div class="container">
+    <h3>{{post.title}}</h3>
+</div>
+{%endblock%} {%block content%}
+<div class="container">
+    <p>{{post.content}}</p>
+    <i>by {{post.user.full_name}} on {{post.time_format()}}</i>
+    <br>
+    <a href="/users/{{post.user.id}}"><button class="btn btn-link">Back</button></a>
+    <a href="/posts/{{post.id}}/edit"><button class="btn btn-primary">Edit</button></a>
+</div>{%endblock%}

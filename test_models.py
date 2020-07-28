@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app
-from models import db, User
+from models import db, User, Post
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogy_test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -21,9 +21,22 @@ class Model_Tests(TestCase):
         db.session.commit()
         
         self.user_id=new_user.id
-    
+
+        Post.query.delete()
+        new_post=Post(title='post title', content='post content', poster_id=self.user_id)
+        db.session.add(new_post)
+        db.session.commit()
+
+        self.post_id=new_post.id
+
     def tearDown(self):
         db.session.rollback()
+        Post.query.delete()
+        db.session.commit()
+    
+    def test_user_class(self):
+        user=User.query.get(self.user_id)
+        self.assertEqual(user.first_name, "Joe")
     
     def test_update_user(self):
         user=User.query.get(self.user_id)
@@ -31,4 +44,7 @@ class Model_Tests(TestCase):
         self.assertEqual(user.first_name, "Alan")
         self.assertEqual(user.image_url, 'https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png' )
 
-    
+    def test_post(self):
+
+        post=Post.query.get(self.post_id)
+        self.assertEqual(post.title, 'post title')
