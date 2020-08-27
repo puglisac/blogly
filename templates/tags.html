@@ -1,0 +1,15 @@
+{%extends "base.html"%} {%block header%}
+<h2 class="container">Tags</h2>
+{%endblock%} {%block content%}
+<div class="container">
+    <ul class="list-group">
+        {%for tag in tags%}
+        <a href="/tags/{{tag.id}}">
+            <li>{{tag.name}}</li>
+        </a>
+        {%endfor%}
+    </ul>
+
+    <a href="/tags/new"><button class="btn btn-primary">Create Tag</button></a>
+</div>
+{%endblock%}

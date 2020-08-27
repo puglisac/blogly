@@ -1,0 +1,16 @@
+{%extends "base.html"%} {%block header%}
+<h2 class="container">{{tag.name}}</h2>
+{%endblock%} {%block content%}
+<div class="container">
+    <ul class="list-group">
+        {%for post in posts%}
+        <a href="/posts/{{post.id}}">
+            <li>{{post.title}}</li>
+        </a>
+        {%endfor%}
+    </ul>
+
+    <a href="#" onclick="history.go(-1)"><button class="btn btn-link">Back</button></a>
+    <a href="/tags/{{tag.id}}/edit"><button class="btn btn-primary">Edit Tag</button></a>
+</div>
+{%endblock%}

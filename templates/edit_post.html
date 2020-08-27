@@ -6,6 +6,11 @@
     <input type="text" id="title" name="title">
     <label for="content">Content:</label>
     <input type="text" id="content" name="content">
+    <br>
+    {%for tag in tags%}
+    <input type="checkbox" name="tags" value="{{tag.id}}"{% if tag in post.tags %}checked{% endif %}><label for="tags">{{tag.name}}</label>
+    <br>
+    {%endfor%}
 
 </form>
 <input class="btn btn-success" type="submit" form="post-edit">

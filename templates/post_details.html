@@ -7,6 +7,11 @@
     <p>{{post.content}}</p>
     <i>by {{post.user.full_name}} on {{post.time_format()}}</i>
     <br>
-    <a href="/users/{{post.user.id}}"><button class="btn btn-link">Back</button></a>
+    <strong>Tags:</strong>
+    {%for tag in tags%}
+     <span class="ml-2">{{tag.name}}</span>
+     {%endfor%}
+     <br>
+    <a href="#" onclick="history.go(-1)"><button class="btn btn-link">Back</button></a>
     <a href="/posts/{{post.id}}/edit"><button class="btn btn-primary">Edit</button></a>
 </div>{%endblock%}

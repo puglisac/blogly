@@ -9,9 +9,15 @@
         <h4>{{post.title}}</h4>
         <p>{{post.content}}</p>
         <i>by {{user.full_name}} on {{post.time_format()}}</i>
+        <br>
+        <strong>Tags:</strong>
+        {%for tag in post.tags%}
+         <span class="ml-2">{{tag.name}}</span>
+         {%endfor%}
+         <br>
     </div> {%endfor%}
     <a href="/users"><button class="btn btn-primary center">Users</button></a>
-
+    <a href="/tags"><button class="btn btn-primary center">Tags</button></a>
 </div>
 
 {%endblock%}

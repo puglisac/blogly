@@ -1,0 +1,11 @@
+{%extends "base.html"%} {%block header%}
+<h2>Edit {{tag.name}}</h2>
+{%endblock%} {%block content%}
+<form id="tag-edit" class="form-group" action="/tags/{{tag.id}}/edit" method="POST">
+    <label for="first-name">Name:</label>
+    <input type="text" id="name" name="name">
+
+</form>
+<input class="btn btn-success" type="submit" form="tag-edit">
+<a href="/tags/{{tag.id}}"><button class="btn btn-primary">Cancel</button></a>
+<form class="d-inline" action="/tags/{{tag.id}}/delete" method="POST"><button class="btn btn-danger">Delete</button></form> {%endblock%}

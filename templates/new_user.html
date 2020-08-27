@@ -1,14 +1,15 @@
 {%extends "base.html"%} {%block header%}
 <h2>Create New User</h2>
 {%endblock%} {%block content%}
-<form action="/users/new" method="POST">
+<form id="new-user-form" action="/users/new" method="POST">
     <label for="first-name">First Name:</label>
     <input type="text" id="first-name" name="first" required>
     <label for="last-name">Last Name:</label>
     <input type="text" id="last-name" name="last" required>
     <label for="img-url">Image URL:</label>
     <input type="text" id="first-name" name="img">
-    <input class="btn-success btn" type="submit">
 </form>
+<input class="btn btn-success" type="submit" form="new-user-form">
+<a href="/users"><button class="btn btn-primary">Cancel</button></a>
 
 {%endblock%}
