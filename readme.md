@@ -11,3 +11,4 @@ Python - back-end
 PostgreSQL - database  
 Flask SQLAlchemy - ORM for database  
 Bootstrap - styling  
+Unittest - testing
