@@ -6,8 +6,8 @@ The home page shows the 5 most recent posts with user information and post info.
 
 ## Built Using
 
-Flask - framework
-Python - back-end
-PostgreSQL - database
-Flask SQLAlchemy - ORM for database
-Bootstrap - styling
+Flask - framework  
+Python - back-end  
+PostgreSQL - database  
+Flask SQLAlchemy - ORM for database  
+Bootstrap - styling  
